@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danang Discovery - The Danang Hotel</title>
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+          /* Colors */
+          --bg: #ffffff;
+          --text: #111111;
+          --muted-text: #666666;
+          --subtle: #f5f5f5;
+          --border: #e5e5e5;
+          --accent: #000000;
+          --accent-contrast: #ffffff;
+          --gold: #d4af37;
+
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+          --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+          --shadow-lg: 0 8px 25px rgba(0,0,0,0.12);
+          --shadow-button: 0 2px 8px rgba(0,0,0,0.15);
+          --shadow-button-hover: 0 8px 25px rgba(0,0,0,0.2);
+
+          /* Radii */
+          --radius-sm: 8px;
+          --radius-md: 14px;
+          --radius-lg: 22px;
+
+          /* Spacing scale */
+          --space-1: 6px;
+          --space-2: 10px;
+          --space-3: 16px;
+          --space-4: 24px;
+          --space-5: 32px;
+          --space-6: 48px;
+          --space-7: 72px;
+
+          /* Container */
+          --container: 480px;
+
+          /* Fonts */
+          --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+          --fs-hero: clamp(32px, 6vw, 56px);
+          --fs-h1: clamp(28px, 4vw, 48px);
+          --fs-h2: clamp(22px, 2.6vw, 34px);
+          --fs-h3: 20px;
+          --fs-body: 16px;
+          --fs-small: 14px;
+          --lh: 1.6;
+          --lh-tight: 1.3;
+        }
+
+        /* ===== RESET & BASE STYLES ===== */
+        *,
+        *::before,
+        *::after {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          font-family: var(--font);
+          font-size: var(--fs-body);
+          line-height: var(--lh);
+          color: var(--text);
+          background-color: var(--bg);
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          min-height: 100vh;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4, h5, h6 {
+          font-weight: 300;
+          letter-spacing: -0.02em;
+          line-height: var(--lh-tight);
+          margin-bottom: var(--space-4);
+        }
+
+        h1 {
+          font-size: var(--fs-h1);
+          font-weight: 200;
+          letter-spacing: -0.03em;
+        }
+
+        h2 {
+          font-size: var(--fs-h2);
+          font-weight: 300;
+          letter-spacing: -0.02em;
+        }
+
+        h3 {
+          font-size: var(--fs-h3);
+          font-weight: 500;
+          letter-spacing: -0.01em;
+        }
+
+        .hero-title {
+          font-size: var(--fs-hero);
+          font-weight: 100;
+          letter-spacing: -0.04em;
+          line-height: 1.1;
+          text-transform: uppercase;
+          margin-bottom: var(--space-5);
+        }
+
+        p {
+          line-height: var(--lh);
+          margin-bottom: var(--space-3);
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+          max-width: var(--container);
+          margin: 0 auto;
+          background: var(--bg);
+          min-height: 100vh;
+          box-shadow: var(--shadow-lg);
+          border-radius: 0;
+        }
+
+        .header {
+          background: var(--accent);
+          color: var(--accent-contrast);
+          padding: var(--space-6) var(--space-4);
+          text-align: center;
+        }
+
+        .hotel-name {
+          font-size: var(--fs-small);
+          font-weight: 300;
+          letter-spacing: 3px;
+          text-transform: uppercase;
+          opacity: 0.8;
+          margin-bottom: var(--space-2);
+        }
+
+        .app-title {
+          font-size: clamp(24px, 5vw, 32px);
+          font-weight: 100;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          margin-bottom: var(--space-3);
+        }
+
+        .hashtag {
+          font-size: var(--fs-body);
+          color: var(--gold);
+          font-weight: 300;
+          letter-spacing: 1px;
+          opacity: 0.9;
+        }
+
+        /* ===== PROMOTIONAL BANNER ===== */
+        .promotional-banner {
+          position: relative;
+          padding: var(--space-7) var(--space-6);
+          text-align: center;
+          border-bottom: 1px solid var(--border);
+          background-image: url('./assets/luxury-meal.jpeg');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          min-height: 120px;
+          /* Fallback gradient if image doesn't load */
+          background-color: #8B4513;
+        }
+
+        .promotional-banner::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.7) 0%,
+            rgba(0, 0, 0, 0.5) 50%,
+            rgba(0, 0, 0, 0.7) 100%
+          );
+        }
+
+        .promotional-text {
+          position: relative;
+          z-index: 2;
+          font-size: clamp(18px, 4vw, 22px);
+          font-weight: 500;
+          color: var(--accent-contrast);
+          letter-spacing: 0.8px;
+          line-height: var(--lh-tight);
+          margin: 0;
+          text-transform: none;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+          padding: var(--space-2) 0;
+        }
+
+        .content {
+          padding: var(--space-7) var(--space-6);
+          max-width: 100%;
+        }
+
+        /* ===== GUEST INFO SECTION ===== */
+        .guest-info {
+          background: var(--subtle);
+          border: none;
+          border-radius: var(--radius-sm);
+          padding: var(--space-6);
+          margin-bottom: var(--space-7);
+          box-shadow: none;
+        }
+
+        .guest-info h3 {
+          font-size: var(--fs-h3);
+          font-weight: 400;
+          margin-bottom: var(--space-4);
+          color: var(--text);
+        }
+
+        .form-group {
+          margin-bottom: var(--space-4);
+        }
+
+        .form-label {
+          display: block;
+          font-size: var(--fs-small);
+          font-weight: 500;
+          color: var(--text);
+          margin-bottom: var(--space-2);
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+        }
+
+        .form-input {
+          width: 100%;
+          padding: var(--space-4) var(--space-3);
+          border: 1px solid var(--border);
+          border-radius: var(--radius-sm);
+          background: var(--bg);
+          color: var(--text);
+          font-size: var(--fs-body);
+          font-weight: 400;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          min-height: 48px;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-input:focus {
+          outline: none;
+          border-color: var(--accent);
+          box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
+          transform: translateY(-1px);
+        }
+
+        .form-input:hover {
+          border-color: var(--muted-text);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-input::placeholder {
+          color: var(--muted-text);
+        }
+
+        /* ===== INSTRUCTIONS ===== */
+        .instructions {
+          background: var(--subtle);
+          border-radius: var(--radius-sm);
+          padding: var(--space-6);
+          margin-bottom: var(--space-7);
+          border: none;
+        }
+
+        .instructions h3 {
+          font-size: var(--fs-h3);
+          font-weight: 400;
+          margin-bottom: var(--space-4);
+          color: var(--text);
+        }
+
+        .instructions ol {
+          padding-left: var(--space-5);
+        }
+
+        .instructions li {
+          margin-bottom: var(--space-2);
+          font-size: 15px;
+          line-height: 1.6;
+          color: var(--text);
+        }
+
+        /* ===== PROGRESS SECTION ===== */
+        .progress-section {
+          margin-bottom: var(--space-7);
+          padding: var(--space-2) 0;
+        }
+
+        .progress-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: var(--space-3);
+        }
+
+        .progress-title {
+          font-size: var(--fs-h3);
+          font-weight: 400;
+          color: var(--text);
+        }
+
+        .progress-count {
+          font-size: 14px;
+          color: var(--muted-text);
+          font-weight: 500;
+        }
+
+        .progress-bar {
+          width: 100%;
+          height: 8px;
+          background: var(--border);
+          border-radius: 4px;
+          overflow: hidden;
+          margin-bottom: var(--space-6);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+        }
+
+        .progress-fill {
+          height: 100%;
+          background: var(--accent);
+          width: 0%;
+          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== ACTIVITIES LIST ===== */
+        .activities {
+          list-style: none;
+        }
+
+        .activity-item {
+          display: flex;
+          align-items: center;
+          padding: var(--space-5) 0;
+          border-bottom: 1px solid var(--border);
+          transition: all 0.2s ease;
+          margin: 0 calc(-1 * var(--space-2));
+          padding-left: var(--space-2);
+          padding-right: var(--space-2);
+          border-radius: var(--radius-sm);
+        }
+
+        .activity-item:last-child {
+          border-bottom: none;
+        }
+
+        .activity-item:hover {
+          background: var(--subtle);
+        }
+
+        .activity-checkbox {
+          width: 24px;
+          height: 24px;
+          margin-right: var(--space-4);
+          cursor: pointer;
+          border: 2px solid var(--border);
+          border-radius: var(--radius-sm);
+          background: var(--bg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+
+        .activity-checkbox:hover {
+          border-color: var(--accent);
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .activity-checkbox.checked {
+          background: var(--accent);
+          border-color: var(--accent);
+          transform: scale(0.95);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .activity-checkbox.checked:hover {
+          transform: translateY(-1px) scale(0.95);
+        }
+
+        .activity-checkbox.checked::after {
+          content: '✓';
+          color: var(--accent-contrast);
+          font-weight: bold;
+          font-size: 14px;
+        }
+
+        .activity-label {
+          font-size: var(--fs-body);
+          line-height: 1.4;
+          cursor: pointer;
+          flex: 1;
+          transition: color 0.2s ease;
+          color: var(--text);
+        }
+
+        .activity-item.completed .activity-label {
+          color: var(--muted-text);
+          text-decoration: line-through;
+        }
+
+        /* ===== COMPLETION SCREEN ===== */
+        .completion-screen {
+          display: none;
+          text-align: center;
+          padding: var(--space-7);
+          background: var(--subtle);
+          border-radius: var(--radius-sm);
+          margin-top: var(--space-7);
+          border: none;
+        }
+
+        .completion-screen.show {
+          display: block;
+        }
+
+        .completion-icon {
+          font-size: 64px;
+          margin-bottom: var(--space-5);
+        }
+
+        .completion-title {
+          font-size: var(--fs-h2);
+          font-weight: 300;
+          color: var(--text);
+          margin-bottom: var(--space-3);
+          letter-spacing: -0.02em;
+        }
+
+        .completion-message {
+          font-size: var(--fs-body);
+          color: var(--muted-text);
+          margin-bottom: var(--space-5);
+          line-height: 1.6;
+        }
+
+        .completion-instructions {
+          background: var(--bg);
+          padding: var(--space-5);
+          border-radius: var(--radius-sm);
+          border: 2px solid var(--gold);
+          font-size: 14px;
+          font-weight: 400;
+          color: var(--text);
+          margin-bottom: var(--space-4);
+          line-height: 1.5;
+        }
+
+        /* ===== SUBMIT BUTTON ===== */
+        .submit-btn {
+          background: var(--accent);
+          color: var(--accent-contrast);
+          border: none;
+          padding: var(--space-4) var(--space-7);
+          border-radius: 50px;
+          font-size: var(--fs-body);
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          width: 100%;
+          min-height: 48px;
+          font-family: var(--font);
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .submit-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+          background: rgba(0, 0, 0, 0.9);
+        }
+
+        .submit-btn:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .submit-btn:disabled {
+          background: var(--muted-text);
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+          opacity: 0.6;
+        }
+
+        .submit-btn:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 3px;
+        }
+
+        /* ===== SUBMIT SECTION ===== */
+        .submit-section {
+          background: var(--subtle);
+          padding: var(--space-6);
+          border-radius: var(--radius-sm);
+          text-align: center;
+          margin-top: var(--space-6);
+          border: none;
+        }
+
+        .submit-info {
+          margin-bottom: var(--space-5);
+        }
+
+        .submit-info h3 {
+          font-size: var(--fs-h3);
+          font-weight: 400;
+          color: var(--text);
+          margin-bottom: var(--space-3);
+        }
+
+        .submit-info .muted {
+          font-size: var(--fs-small);
+          line-height: var(--lh);
+          margin: 0;
+        }
+
+        .verification-notice {
+          font-size: var(--fs-small);
+          color: var(--muted-text);
+          line-height: var(--lh);
+          margin-top: var(--space-3);
+          font-style: italic;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 480px) {
+          .container {
+            box-shadow: none;
+            border-radius: 0;
+          }
+          
+          .header {
+            padding: var(--space-5) var(--space-3);
+          }
+          
+          .promotional-banner {
+            padding: var(--space-5) var(--space-3);
+            min-height: 100px;
+          }
+          
+          .promotional-text {
+            font-size: 16px;
+            padding: var(--space-1) 0;
+          }
+          
+          .content {
+            padding: var(--space-5) var(--space-3);
+          }
+          
+          .app-title {
+            font-size: 24px;
+          }
+          
+          .guest-info,
+          .instructions {
+            padding: var(--space-4);
+            margin-bottom: var(--space-5);
+          }
+          
+          .completion-screen {
+            padding: var(--space-6) var(--space-3);
+          }
+          
+          .submit-section {
+            padding: var(--space-5) var(--space-3);
+            margin-top: var(--space-5);
+          }
+        }
+
+        /* ===== ACCESSIBILITY ===== */
+        @media (prefers-reduced-motion: reduce) {
+          *,
+          *::before,
+          *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        .activity-checkbox:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="hotel-name">The Danang Hotel</div>
+            <div class="app-title">Danang Discovery</div>
+            <div class="hashtag">#DanangDiscovery</div>
+        </div>
+
+        <div class="promotional-banner">
+            <div class="promotional-text">Visit all attractions to win a luxury meal for two.</div>
+        </div>
+
+        <div class="content">
+            <div class="guest-info">
+                <h3>Guest Information</h3>
+                <div class="form-group">
+                    <label class="form-label" for="guestName">Name</label>
+                    <input type="text" id="guestName" class="form-input" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="roomNumber">Room Number</label>
+                    <input type="text" id="roomNumber" class="form-input" placeholder="Enter your room number">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="instagramUsername">Instagram Username</label>
+                    <input type="text" id="instagramUsername" class="form-input" placeholder="@yourusername">
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3>How to Play</h3>
+                <ol>
+                    <li>Get your Danang Discovery Card with 10 activities.</li>
+                    <li>Visit each attraction or cultural experience on your card.</li>
+                    <li>Take a selfie at each stop and post it on Instagram with our hashtag: #DanangDiscovery.</li>
+                    <li>Tick off each activity in the app as you go.</li>
+                    <li>Show your 10 Instagram posts to our reception team.</li>
+                    <li>The first guest to finish each day wins a complimentary dinner for two at our signature restaurant.</li>
+                </ol>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <div class="progress-title">Your Activities</div>
+                    <div class="progress-count"><span id="completed">0</span> of 10 complete</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <ul class="activities" id="activities"></ul>
+
+            <div class="submit-section">
+                <div class="submit-info">
+                    <h3>Submit Your Progress</h3>
+                    <p class="muted">Send your current progress to our reception team. You can submit at any time, even if incomplete.</p>
+                </div>
+                <button class="submit-btn" id="mainSubmitBtn" onclick="submitCard()">Submit</button>
+                <p class="verification-notice">Your card will be submitted to the hotel for verification. Verification will take up to 24 hours.</p>
+            </div>
+
+            <div class="completion-screen" id="completionScreen">
+                <div class="completion-icon">🎉</div>
+                <div class="completion-title">Congratulations!</div>
+                <div class="completion-message">You've completed all 10 Danang Discovery activities!</div>
+                <div class="completion-instructions">
+                    Show this screen and your 10 Instagram posts with #DanangDiscovery to our reception team to claim your prize.
+                </div>
+                <button class="submit-btn" id="submitBtn" onclick="submitCard()">Submit</button>
+                <p class="verification-notice">Your card will be submitted to the hotel for verification. Verification will take up to 24 hours.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ACTIVITY_POOL = [
+            "Visit Dragon Bridge for the fire show",
+            "Try authentic bánh mì at a local vendor",
+            "Ride a motorbike around the city",
+            "Explore the Marble Mountains caves",
+            "Taste traditional egg coffee",
+            "Watch sunrise at Mỹ Khê Beach",
+            "Shop at Hàn Market",
+            "Hike Sơn Trà Peninsula",
+            "Eat mì quảng noodles",
+            "Visit during lantern festival",
+            "Take the cable car to Bà Nà Hills",
+            "Join a cooking class",
+            "Experience a basket boat tour",
+            "Go on a street food tour",
+            "Visit Linh Ung Pagoda",
+            "Enjoy karaoke night",
+            "See Cao Đài Temple",
+            "Try chè dessert",
+            "Explore the night market",
+            "Rent a bicycle for city tour",
+            "Visit a traditional fishing village",
+            "Relax at a local spa",
+            "Take a Hoi An day trip",
+            "Visit the Museum of Cham Sculpture",
+            "Try local seafood at Con Market",
+            "Walk across Dragon Bridge",
+            "Visit Phap Lam Pagoda",
+            "Experience Vietnamese coffee culture",
+            "Take photos at Love Lock Bridge",
+            "Visit the Japanese Covered Bridge in Hoi An"
+        ];
+
+        let userActivities = [];
+        let completedActivities = new Set();
+        let guestInfo = {};
+
+        function generateUserActivities() {
+            const shuffled = [...ACTIVITY_POOL].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, 10);
+        }
+
+        function saveData() {
+            localStorage.setItem('danangDiscoveryActivities', JSON.stringify(userActivities));
+            localStorage.setItem('danangDiscoveryCompleted', JSON.stringify([...completedActivities]));
+            localStorage.setItem('danangDiscoveryGuestInfo', JSON.stringify(guestInfo));
+        }
+
+        function loadData() {
+            const savedActivities = localStorage.getItem('danangDiscoveryActivities');
+            const savedCompleted = localStorage.getItem('danangDiscoveryCompleted');
+            const savedGuestInfo = localStorage.getItem('danangDiscoveryGuestInfo');
+
+            if (savedActivities) {
+                userActivities = JSON.parse(savedActivities);
+                completedActivities = new Set(JSON.parse(savedCompleted) || []);
+                guestInfo = JSON.parse(savedGuestInfo) || {};
+            } else {
+                userActivities = generateUserActivities();
+                completedActivities = new Set();
+                guestInfo = {};
+                saveData();
+            }
+        }
+
+        function loadGuestInfo() {
+            document.getElementById('guestName').value = guestInfo.name || '';
+            document.getElementById('roomNumber').value = guestInfo.roomNumber || '';
+            document.getElementById('instagramUsername').value = guestInfo.instagramUsername || '';
+        }
+
+        function saveGuestInfo() {
+            guestInfo = {
+                name: document.getElementById('guestName').value,
+                roomNumber: document.getElementById('roomNumber').value,
+                instagramUsername: document.getElementById('instagramUsername').value
+            };
+            saveData();
+        }
+
+        function submitCard() {
+            saveGuestInfo();
+            
+            if (!guestInfo.name || !guestInfo.roomNumber || !guestInfo.instagramUsername) {
+                alert('Please fill in all guest information fields before submitting.');
+                return;
+            }
+
+            const completedList = userActivities
+                .map((activity, index) => completedActivities.has(index) ? `✓ ${activity}` : `✗ ${activity}`)
+                .join('\n');
+
+            const emailBody = `Guest Information:
+Name: ${guestInfo.name}
+Room Number: ${guestInfo.roomNumber}
+Instagram Username: ${guestInfo.instagramUsername}
+
+Progress Status: ${completedActivities.size}/10 activities completed
+
+Activities Checklist:
+${completedList}
+
+${completedActivities.size === 10 ? 
+  'STATUS: ALL ACTIVITIES COMPLETE! Please verify the guest\'s Instagram posts with #DanangDiscovery before awarding the luxury meal prize.' : 
+  'STATUS: IN PROGRESS - Guest can continue working on remaining activities.'
+}
+
+Submission Time: ${new Date().toLocaleString()}`;
+
+            const mailtoLink = `mailto:reception@thedananghotel.com?subject=Danang Discovery Complete&body=${encodeURIComponent(emailBody)}`;
+            
+            window.location.href = mailtoLink;
+        }
+
+        function renderActivities() {
+            const activitiesContainer = document.getElementById('activities');
+            activitiesContainer.innerHTML = '';
+
+            userActivities.forEach((activity, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = `activity-item ${completedActivities.has(index) ? 'completed' : ''}`;
+
+                const checkbox = document.createElement('div');
+                checkbox.className = `activity-checkbox ${completedActivities.has(index) ? 'checked' : ''}`;
+                checkbox.onclick = () => toggleActivity(index);
+
+                const label = document.createElement('div');
+                label.className = 'activity-label';
+                label.textContent = activity;
+                label.onclick = () => toggleActivity(index);
+
+                listItem.appendChild(checkbox);
+                listItem.appendChild(label);
+                activitiesContainer.appendChild(listItem);
+            });
+        }
+
+        function updateProgress() {
+            const completed = completedActivities.size;
+            const total = userActivities.length;
+            const percentage = (completed / total) * 100;
+
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('progressFill').style.width = percentage + '%';
+
+            if (completed === total) {
+                document.getElementById('completionScreen').classList.add('show');
+            } else {
+                document.getElementById('completionScreen').classList.remove('show');
+            }
+        }
+
+        function toggleActivity(index) {
+            if (completedActivities.has(index)) {
+                completedActivities.delete(index);
+            } else {
+                completedActivities.add(index);
+            }
+            
+            saveData();
+            renderActivities();
+            updateProgress();
+        }
+
+        document.getElementById('guestName').addEventListener('input', saveGuestInfo);
+        document.getElementById('roomNumber').addEventListener('input', saveGuestInfo);
+        document.getElementById('instagramUsername').addEventListener('input', saveGuestInfo);
+
+        loadData();
+        loadGuestInfo();
+        renderActivities();
+        updateProgress();
+    </script>
+</body>
+</html>

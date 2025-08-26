@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danang Discovery - The Danang Hotel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fafafa;
+            color: #2c2c2c;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .hotel-name {
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .hashtag {
+            font-size: 16px;
+            color: #d4af37;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .content {
+            padding: 24px 20px;
+        }
+
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 32px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .instructions h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .guest-info {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+
+        .guest-info h3 {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .progress-section {
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .progress-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .progress-count {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #f4d03f);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .activities {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s ease;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item:hover {
+            background: #fafafa;
+        }
+
+        .activity-checkbox {
+            width: 24px;
+            height: 24px;
+            margin-right: 16px;
+            cursor: pointer;
+            border: 2px solid #d4af37;
+            border-radius: 4px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .activity-checkbox:hover {
+            background: #f8f9fa;
+        }
+
+        .activity-checkbox.checked {
+            background: #d4af37;
+            border-color: #d4af37;
+        }
+
+        .activity-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .activity-label {
+            font-size: 16px;
+            line-height: 1.4;
+            cursor: pointer;
+            flex: 1;
+            transition: color 0.2s ease;
+        }
+
+        .activity-item.completed .activity-label {
+            color: #666;
+            text-decoration: line-through;
+        }
+
+        .completion-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            margin-top: 32px;
+        }
+
+        .completion-screen.show {
+            display: block;
+        }
+
+        .completion-icon {
+            font-size: 48px;
+            margin-bottom: 24px;
+        }
+
+        .completion-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+        }
+
+        .completion-message {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .completion-instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #d4af37;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #d4af37, #f4d03f);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #c19b26, #f1c40f);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                box-shadow: none;
+            }
+            
+            .header {
+                padding: 20px 16px;
+            }
+            
+            .content {
+                padding: 20px 16px;
+            }
+            
+            .app-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="hotel-name">The Danang Hotel</div>
+            <div class="app-title">Danang Discovery</div>
+            <div class="hashtag">#DanangDiscovery</div>
+        </div>
+
+        <div class="content">
+            <div class="guest-info">
+                <h3>Guest Information</h3>
+                <div class="form-group">
+                    <label class="form-label" for="guestName">Name</label>
+                    <input type="text" id="guestName" class="form-input" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="roomNumber">Room Number</label>
+                    <input type="text" id="roomNumber" class="form-input" placeholder="Enter your room number">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="instagramUsername">Instagram Username</label>
+                    <input type="text" id="instagramUsername" class="form-input" placeholder="@yourusername">
+                </div>
+            </div>
+
+            <div class="instructions">
+                <h3>How to Play</h3>
+                <ol>
+                    <li>Get your Danang Discovery Card with 10 activities.</li>
+                    <li>Visit each attraction or cultural experience on your card.</li>
+                    <li>Take a selfie at each stop and post it on Instagram with our hashtag: #DanangDiscovery.</li>
+                    <li>Tick off each activity in the app as you go.</li>
+                    <li>Show your 10 Instagram posts to our reception team.</li>
+                    <li>The first guest to finish each day wins a complimentary dinner for two at our signature restaurant.</li>
+                </ol>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-header">
+                    <div class="progress-title">Your Activities</div>
+                    <div class="progress-count"><span id="completed">0</span> of 10 complete</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <ul class="activities" id="activities"></ul>
+
+            <div class="completion-screen" id="completionScreen">
+                <div class="completion-icon">🎉</div>
+                <div class="completion-title">Congratulations!</div>
+                <div class="completion-message">You've completed all 10 Danang Discovery activities!</div>
+                <div class="completion-instructions">
+                    Show this screen and your 10 Instagram posts with #DanangDiscovery to our reception team to claim your prize.
+                </div>
+                <button class="submit-btn" id="submitBtn" onclick="submitCard()">Submit Completed Card to Hotel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ACTIVITY_POOL = [
+            "Visit Dragon Bridge for the fire show",
+            "Try authentic bánh mì at a local vendor",
+            "Ride a motorbike around the city",
+            "Explore the Marble Mountains caves",
+            "Taste traditional egg coffee",
+            "Watch sunrise at Mỹ Khê Beach",
+            "Shop at Hàn Market",
+            "Hike Sơn Trà Peninsula",
+            "Eat mì quảng noodles",
+            "Visit during lantern festival",
+            "Take the cable car to Bà Nà Hills",
+            "Join a cooking class",
+            "Experience a basket boat tour",
+            "Go on a street food tour",
+            "Visit Linh Ung Pagoda",
+            "Enjoy karaoke night",
+            "See Cao Đài Temple",
+            "Try chè dessert",
+            "Explore the night market",
+            "Rent a bicycle for city tour",
+            "Visit a traditional fishing village",
+            "Relax at a local spa",
+            "Take a Hoi An day trip",
+            "Visit the Museum of Cham Sculpture",
+            "Try local seafood at Con Market",
+            "Walk across Dragon Bridge",
+            "Visit Phap Lam Pagoda",
+            "Experience Vietnamese coffee culture",
+            "Take photos at Love Lock Bridge",
+            "Visit the Japanese Covered Bridge in Hoi An"
+        ];
+
+        let userActivities = [];
+        let completedActivities = new Set();
+        let guestInfo = {};
+
+        function generateUserActivities() {
+            const shuffled = [...ACTIVITY_POOL].sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, 10);
+        }
+
+        function saveData() {
+            localStorage.setItem('danangDiscoveryActivities', JSON.stringify(userActivities));
+            localStorage.setItem('danangDiscoveryCompleted', JSON.stringify([...completedActivities]));
+            localStorage.setItem('danangDiscoveryGuestInfo', JSON.stringify(guestInfo));
+        }
+
+        function loadData() {
+            const savedActivities = localStorage.getItem('danangDiscoveryActivities');
+            const savedCompleted = localStorage.getItem('danangDiscoveryCompleted');
+            const savedGuestInfo = localStorage.getItem('danangDiscoveryGuestInfo');
+
+            if (savedActivities) {
+                userActivities = JSON.parse(savedActivities);
+                completedActivities = new Set(JSON.parse(savedCompleted) || []);
+                guestInfo = JSON.parse(savedGuestInfo) || {};
+            } else {
+                userActivities = generateUserActivities();
+                completedActivities = new Set();
+                guestInfo = {};
+                saveData();
+            }
+        }
+
+        function loadGuestInfo() {
+            document.getElementById('guestName').value = guestInfo.name || '';
+            document.getElementById('roomNumber').value = guestInfo.roomNumber || '';
+            document.getElementById('instagramUsername').value = guestInfo.instagramUsername || '';
+        }
+
+        function saveGuestInfo() {
+            guestInfo = {
+                name: document.getElementById('guestName').value,
+                roomNumber: document.getElementById('roomNumber').value,
+                instagramUsername: document.getElementById('instagramUsername').value
+            };
+            saveData();
+        }
+
+        function submitCard() {
+            saveGuestInfo();
+            
+            if (!guestInfo.name || !guestInfo.roomNumber || !guestInfo.instagramUsername) {
+                alert('Please fill in all guest information fields before submitting.');
+                return;
+            }
+
+            const completedList = userActivities
+                .map((activity, index) => completedActivities.has(index) ? `✓ ${activity}` : `✗ ${activity}`)
+                .join('\n');
+
+            const emailBody = `Guest Information:
+Name: ${guestInfo.name}
+Room Number: ${guestInfo.roomNumber}
+Instagram Username: ${guestInfo.instagramUsername}
+
+Completed Activities (${completedActivities.size}/10):
+${completedList}
+
+Please verify the guest's Instagram posts with #DanangDiscovery before awarding the prize.`;
+
+            const mailtoLink = `mailto:reception@thedananghotel.com?subject=Danang Discovery Complete&body=${encodeURIComponent(emailBody)}`;
+            
+            window.location.href = mailtoLink;
+        }
+
+        function renderActivities() {
+            const activitiesContainer = document.getElementById('activities');
+            activitiesContainer.innerHTML = '';
+
+            userActivities.forEach((activity, index) => {
+                const listItem = document.createElement('li');
+                listItem.className = `activity-item ${completedActivities.has(index) ? 'completed' : ''}`;
+
+                const checkbox = document.createElement('div');
+                checkbox.className = `activity-checkbox ${completedActivities.has(index) ? 'checked' : ''}`;
+                checkbox.onclick = () => toggleActivity(index);
+
+                const label = document.createElement('div');
+                label.className = 'activity-label';
+                label.textContent = activity;
+                label.onclick = () => toggleActivity(index);
+
+                listItem.appendChild(checkbox);
+                listItem.appendChild(label);
+                activitiesContainer.appendChild(listItem);
+            });
+        }
+
+        function updateProgress() {
+            const completed = completedActivities.size;
+            const total = userActivities.length;
+            const percentage = (completed / total) * 100;
+
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('progressFill').style.width = percentage + '%';
+
+            if (completed === total) {
+                document.getElementById('completionScreen').classList.add('show');
+            } else {
+                document.getElementById('completionScreen').classList.remove('show');
+            }
+        }
+
+        function toggleActivity(index) {
+            if (completedActivities.has(index)) {
+                completedActivities.delete(index);
+            } else {
+                completedActivities.add(index);
+            }
+            
+            saveData();
+            renderActivities();
+            updateProgress();
+        }
+
+        document.getElementById('guestName').addEventListener('input', saveGuestInfo);
+        document.getElementById('roomNumber').addEventListener('input', saveGuestInfo);
+        document.getElementById('instagramUsername').addEventListener('input', saveGuestInfo);
+
+        loadData();
+        loadGuestInfo();
+        renderActivities();
+        updateProgress();
+    </script>
+</body>
+</html>
